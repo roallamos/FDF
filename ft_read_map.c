@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_check_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/02/20 15:40:20 by rodralva          #+#    #+#             */
+/*   Updated: 2024/02/21 21:15:42 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+int	ft_read_map(int fd, t_list **list)
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	char	*content;
+	int		i;
 
-	if (argc != 2)
-		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
+	i = 0;
+	content = NULL;
+	while (content || !*list)
 	{
-		printf("%s\n", list->content);
-		list = list->next;
+		content	= get_next_line(fd);
+		ft_lstadd_back(list, ft_lstnew(content));
+		if (content)
+			i++;
 	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
-	return (0);
+	return (i);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/08 14:11:50 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 12:30:07 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
-
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+int	ft_isalpha(int a)
+{
+	if (!((a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z')))
+		return (0);
+	return (1);
+}

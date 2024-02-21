@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/10 15:52:46 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/24 16:08:21 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include <stdlib.h>
+#include "libft.h"
 
-# include "./libft/libft.h"
+char	*ft_strdup(const char *s1)
+{
+	char			*cpy;
+	unsigned long	n;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	n = ft_strlen(s1);
+	cpy = (char *) malloc(n + 1);
+	if (!cpy)
+		return (NULL);
+	ft_strlcpy(cpy, s1, n + 1);
+	return (cpy);
+}

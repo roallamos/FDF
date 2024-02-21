@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/11 17:53:24 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/24 18:48:28 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "./libft/libft.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	n;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	n = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *) malloc (n + 1);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, n + 1);
+	ft_strlcat(str, s2, n + 1);
+	return (str);
+}

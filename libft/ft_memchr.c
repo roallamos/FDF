@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/09 15:12:40 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 14:41:57 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "fdf.h"
+#include "libft.h"
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-int	main(int argc, char **argv)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	size_t			i;
+	unsigned char	*str;
 
-	if (argc != 2)
-		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
+	i = 0;
+	str = (unsigned char *) s;
+	while (i < n)
 	{
-		printf("%s\n", list->content);
-		list = list->next;
+		if (str[i] == (unsigned char) c)
+			return (&str[i]);
+		i++;
 	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
 	return (0);
 }

@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/14 17:18:34 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/24 16:07:40 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "fdf.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int	main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	unsigned int	i;
+	char			*str;
 
-	if (argc != 2)
+	i = 0;
+	str = ft_calloc(ft_strlen(s) + 1, 1);
+	if (!str)
 		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
+	while (s[i])
 	{
-		printf("%s\n", list->content);
-		list = list->next;
+		str[i] = (*f)(i, s[i]);
+		i++;
 	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
-	return (0);
+	str[i] = 0;
+	return (str);
 }

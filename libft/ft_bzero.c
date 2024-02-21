@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/08 16:21:29 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 16:50:04 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*t;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	i = 0;
+	t = (unsigned char *) s;
+	while (i < n)
+	{
+		t[i] = '\0';
+		i++;
+	}
+}

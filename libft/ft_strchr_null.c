@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr_null.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/02/19 18:47:13 by rodralva          #+#    #+#             */
+/*   Updated: 2024/02/21 18:16:10 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr_null(const char *s, int c)
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	int		i;
+	char	*t;
 
-	if (argc != 2)
-		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
+	i = 0;
+	t = (char *) s;
+	if (!s)
+		return (NULL);
+	while (t[i])
 	{
-		printf("%s\n", list->content);
-		list = list->next;
+		if (t[i] == (char) c)
+			return (&t[i]);
+		i++;
 	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
+	if (!(char) c)
+		return (&t[i]);
 	return (0);
 }

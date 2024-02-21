@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/08 14:45:08 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 12:33:52 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
-
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+int	ft_isprint(int a)
+{
+	if (!(a >= 32 && a <= 126))
+		return (0);
+	return (1);
+}

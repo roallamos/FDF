@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/09 10:45:18 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 14:42:51 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "fdf.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	size_t			i;
+	unsigned char	*sr;
+	unsigned char	*des;
 
-	if (argc != 2)
+	sr = (unsigned char *)src;
+	des = (unsigned char *)dst;
+	i = 0;
+	if (sr == 0 && des == 0)
 		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
+	if (sr > des)
 	{
-		printf("%s\n", list->content);
-		list = list->next;
+		while (i < len)
+		{
+			des[i] = sr[i];
+			i++;
+		}
 	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
-	return (0);
+	while (len > i)
+	{
+		des[len - 1] = sr[len - 1];
+		len--;
+	}
+	return (des);
 }

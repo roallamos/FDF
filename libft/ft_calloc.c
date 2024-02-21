@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/10 10:42:58 by rodralva          #+#    #+#             */
+/*   Updated: 2024/02/19 12:05:35 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*array;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	if (size != 0 && count > SIZE_MAX / size)
+		return (NULL);
+	array = (char *) malloc(count * size);
+	if (array == NULL)
+		return (NULL);
+	ft_memset(array, 0, (count * size));
+	return (array);
+}

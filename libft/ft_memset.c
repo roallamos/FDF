@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/08 15:11:24 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 14:43:12 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+void	*ft_memset(void *buf, int c, size_t len)
+{
+	size_t			i;
+	unsigned char	*t;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	i = 0;
+	t = (unsigned char *) buf;
+	while (i < len)
+	{
+		t[i] = c;
+		i++;
+	}
+	return (t);
+}

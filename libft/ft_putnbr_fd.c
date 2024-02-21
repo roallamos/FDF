@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 20:15:30 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/14 18:35:44 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/22 14:44:24 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+void	ft_putnbr_fd(int n, int fd)
+{
+	char	chr;
+	long	nb;
 
-int	ft_read_map(int fd, t_list **list);
-
-#endif
+	nb = n;
+	if (nb < 0)
+	{
+		nb = -nb;
+		ft_putchar_fd('-', fd);
+	}
+	chr = nb % 10 + '0';
+	if (nb / 10 != 0)
+		ft_putnbr_fd(nb / 10, fd);
+	ft_putchar_fd(chr, fd);
+}

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/11 12:46:19 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/31 17:23:25 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "fdf.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int	main(int argc, char **argv)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int 	fd;
-	int		lines;
-	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	char	*sub;
+	size_t	mem;
 
-	if (argc != 2)
+	mem = len;
+	if (ft_strlen(s) <= start)
+		return (ft_calloc(1, 1));
+	if (mem > ft_strlen(s + start))
+		mem = ft_strlen(s + start);
+	sub = ft_calloc(mem + 1, 1);
+	if (sub == 0)
 		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
-	{
-		printf("%s\n", list->content);
-		list = list->next;
-	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
-	return (0);
+	ft_strlcpy(sub, &s[start], mem + 1);
+	return (sub);
 }

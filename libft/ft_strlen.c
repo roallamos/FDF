@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_map.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:40:20 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/20 21:27:58 by rodralva         ###   ########.fr       */
+/*   Created: 2024/01/08 12:56:07 by rodralva          #+#    #+#             */
+/*   Updated: 2024/01/24 20:48:09 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_check_map(int fd)
+#include "libft.h"
+
+size_t	ft_strlen(const char *str)
 {
-	t_list	*line;
+	int	i;
 
-	char	*ptr;
-
-	= get_next_line(fd);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
-
-
