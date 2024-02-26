@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_map.c                                     :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:40:20 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/23 18:49:33 by rodralva         ###   ########.fr       */
+/*   Created: 2024/02/23 17:48:35 by rodralva          #+#    #+#             */
+/*   Updated: 2024/02/26 11:00:10 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
 #include "fdf.h"
 
-int	ft_read_map(char *map, t_list **list)
+void	ft_print(t_struct **map)
 {
-	char	*content;
-	int		fd;
-	int		i;
+	int i;
+	int j;
 
 	i = 0;
-	content = NULL;
-	fd = open(map, O_RDONLY);
-	while (content || !*list)
+	j = 0;
+	while (i < 4)
 	{
-		content	= get_next_line(fd);
-		ft_lstadd_back(list, ft_lstnew(content));
-		if (content)
-			i++;
+		while (j < 5)
+		{
+			printf("%i", map[i][j].height);
+			j++;
+		}
+		printf("\n");
+		j = 0;
+		i++;
 	}
-	return (i);
 }

@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_map.c                                     :+:      :+:    :+:   */
+/*   ft_free_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:40:20 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/23 18:49:33 by rodralva         ###   ########.fr       */
+/*   Created: 2024/02/22 11:49:27 by rodralva          #+#    #+#             */
+/*   Updated: 2024/02/26 11:32:40 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
 #include "fdf.h"
 
-int	ft_read_map(char *map, t_list **list)
+void	ft_free_map(t_struct **map, int lines)
 {
-	char	*content;
-	int		fd;
-	int		i;
+	int i;
+	int j;
 
 	i = 0;
-	content = NULL;
-	fd = open(map, O_RDONLY);
-	while (content || !*list)
+	j = 0;
+	while (i < lines)
 	{
-		content	= get_next_line(fd);
-		ft_lstadd_back(list, ft_lstnew(content));
-		if (content)
-			i++;
+		free (map[i]);
+		i++;
 	}
-	return (i);
+	free (map);
 }

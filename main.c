@@ -6,34 +6,38 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/21 21:15:39 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:20:31 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
 #include "fdf.h"
+void leaks()
+{
+	system("leaks -q a.out");
+}
 
 int	main(int argc, char **argv)
 {
-	int 	fd;
 	int		lines;
+	int		columns;
 	t_list	*list;
-//	int		**map;
-	t_list	*flist;
+	t_struct	**map;
 
+	columns = 0;
 	if (argc != 2)
 		return (0);
-	fd = open(argv[1], O_RDONLY);
-	list = NULL; 
-	lines = ft_read_map(fd, &list);
-//	map = ft_map_array(list);
-	flist = list;
-	while (list)
-	{
-		printf("%s\n", list->content);
-		list = list->next;
-	}
-	ft_lstclear(&flist, free);
-	system("leaks -q a.out");
+	list = NULL;
+	lines = ft_read_map(argv[1], &list);
+	map = ft_map_array(list, lines, &columns);
+	ft_lstclear(&list, free);
+//	while (list)
+//	{
+//		printf("lista ---- %s\n", list->content);
+//		list = list->next;
+//	}
+	ft_free_map(map, lines);
+//	ft_print(map);
+	ft_window(lines, columns);
+	atexit(leaks);
 	return (0);
 }
