@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/06 12:58:39 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:54:05 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ void leaks()
 
 int	main(int argc, char **argv)
 {
-	int		lines;
-	int		columns;
 	t_list	*list;
 	t_map	map;
 
-	columns = 0;
 	if (argc != 2)
 		return (0);
 	list = NULL;
-	lines = ft_read_map(argv[1], &list);
-	map = ft_map_array(list, lines, &columns);
+	map.lines = ft_read_map(argv[1], &list);
+	ft_map_array(list, &map);
 	ft_lstclear(&list, free);
 //	while (list)
 //	{
@@ -37,8 +34,8 @@ int	main(int argc, char **argv)
 //	}
 	//ft_free_map(map, lines);
 //	ft_print(map);
-	ft_window(lines, columns, map);
-	ft_free_map(map, lines);
+	ft_window(map);
+	ft_free_map(map);
 	atexit(leaks);
 	return (0);
 }

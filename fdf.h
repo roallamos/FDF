@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/06 12:48:40 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:06:46 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_struct
 
 typedef struct s_map
 {
-	int map_horz;
-	int map_vert;
+	int lines;
+	int columns;
 	t_struct **point;
 	int x_offset;
 	int y_offset;
@@ -48,9 +48,9 @@ typedef struct	s_data
 } t_data;
 
 int	ft_read_map(char *map, t_list **list);
-t_map	ft_map_array(t_list *list, int lines, int *columns);
-void	ft_free_map(t_map map, int lines);
-void	ft_window(int lines, int collumns, t_map map);
+int	ft_map_array(t_list *list, t_map *map);
+void	ft_free_map(t_map map);
+void	ft_window(t_map map);
 void	ft_print(t_map map);
 
 #endif
