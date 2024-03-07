@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:58:05 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/06 17:45:51 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:50:15 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ int ft_map_array(t_list *list, t_map *map)
 	char	**spl;
 	int		l;
 	int		j;
-	int		x;
-	int		y;
-	int		z;
 	
 	l = 0;
 	j = 0;
+	map->max_z = 0;
 	map->columns = 0;
 	map->point = (t_struct **) malloc(map->lines * sizeof(t_struct *));
 	if (!map->point)
@@ -41,11 +39,10 @@ int ft_map_array(t_list *list, t_map *map)
 			if (ft_strchr(spl[j], ','))
 				map->point[l][j].colour =ft_substr(spl[j], 1, ft_strlen(spl[j]));
 			map->point[l][j].z = ft_atoi(spl[j]);
-			z = ft_atoi(spl[j]);
+	//		if (abs(map->point[l][j].z) > map->max_z)
+	//			map->max_z = abs(map->point[l][j].z);
 			map->point[l][j].x = j;
-			x = j;
 			map->point[l][j].y = l;
-			y = l;
 		//	printf("las x -> %i las y -> %i", map.point[l][j].x, map.point[l][j].y);
 			free (spl[j]);
 			j++;

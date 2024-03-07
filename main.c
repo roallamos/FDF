@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/06 13:54:05 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:13:30 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ int	main(int argc, char **argv)
 //		printf("lista ---- %s\n", list->content);
 //		list = list->next;
 //	}
-	//ft_free_map(map, lines);
 //	ft_print(map);
 	ft_window(map);
 	ft_free_map(map);
-	atexit(leaks);
+//	atexit(leaks);
 	return (0);
 }

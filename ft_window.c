@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/07 12:46:42 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:54:54 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	ft_bresenham(int i, int j, t_map map, t_data *img)
+void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 {
 	int dx;
 	int dy;
@@ -30,103 +30,112 @@ void	ft_bresenham(int i, int j, t_map map, t_data *img)
 	int x;
 	int y;
 
-	x = 0;
-	y = 0;
-	if (i + 1 < map.columns)
-	{
-		dx = map.point[j][i + 1].x - map.point[j][i].x;
-		dy = map.point[j][i + 1].y - map.point[j][i].y;
-		D = 2 * dy - dx;
-		if (dx > dy)
-		{
-			while (map.point[j][i + 1].x != map.point[j][i].x + x || map.point[j][i + 1].y != map.point[j][i].y + y)
-			{
-				if (D <= 0)
-				{
-					if (map.point[j][i].y + y != map.point[j][i + 1].y)
-						y += 1;
-					D = D + 2 * dy;
-				}
-				else
-					D = D + 2 * (dy - dx);
-				if (map.point[j][i].x + x != map.point[j][i + 1].x)
-					x += 1;
-				my_mlx_pixel_put(img, map.point[j][i].x + x, map.point[j][i].y + y, 0xFFFFFF);
-			}
-		}
-		else if (dx < dy)
-		{
-			while (map.point[j][i + 1].x != map.point[j][i].x + x || map.point[j][i + 1].y != map.point[j][i].y + y)
-			{
-				if (D <= 0)
-				{
-					if (map.point[j][i].x + x != map.point[j][i + 1].x)
-						x += 1;
-					D = D + 2 * dx;
-				}
-				else
-					D = D + 2 * (dx - dy);
-				if (map.point[j][i].y + y != map.point[j][i + 1].y)
-					y += 1;
-				my_mlx_pixel_put(img, map.point[j][i].x + x, map.point[j][i].y + y, 0xFFFFFF);
-			}
-		}
-	}
-	x = 0;
-	y = 0;
+	x = map.point[j][i].x;
+	y = map.point[j][i].y;
 	if (j + 1 < map.lines)
 	{
-		dx = map.point[j + 1][i].x - map.point[j][i].x;
-		dy = map.point[j + 1][i].y - map.point[j][i].y;
-		D = 2 * dy - dx;
+		dx = abs(map.point[j + 1][i].x - x);
+		dy = abs(map.point[j + 1][i].y - y);
 		if (dx > dy)
 		{
-			while (map.point[j + 1][i].x != map.point[j][i].x + x || map.point[j + 1][i].y != map.point[j][i].y + y)
+			D = 2 * dy - dx;
+			while (x != map.point[j + 1][i].x)
 			{
-				if (D <= 0)
-				{
-					if (map.point[j][i].y + y != map.point[j + 1][i].y)
-						y += 1;
+				my_mlx_pixel_put(img, x, y, 0xFFFFFF);
+				x += (map.point[j + 1][i].x - map.point[j][i].x)/dx;
+				if (D < 0)
 					D = D + 2 * dy;
-				}
 				else
+				{
 					D = D + 2 * (dy - dx);
-				if (map.point[j][i].x + x != map.point[j + 1][i].x)
-					x -= 1;
-				my_mlx_pixel_put(img, map.point[j][i].x + x, map.point[j][i].y + y, 0xFFFFFF);
+					y += (map.point[j + 1][i].y - map.point[j][i].y)/dy;
+				}
 			}
 		}
-		else if (dx < dy)
+		else
 		{
-			while (map.point[j + 1][i].x != map.point[j][i].x + x || map.point[j + 1][i].y != map.point[j][i].y + y)
+			D = 2 * dx - dy;
+			while (y != map.point[j + 1][i].y)
 			{
-				if (D <= 0)
-				{
-					if (map.point[j][i].x + x != map.point[j + 1][i].x)
-						x -= 1;
+				my_mlx_pixel_put(img, x, y, 0xFFFFFF);
+				y += (map.point[j + 1][i].y - map.point[j][i].y)/dy;
+				if (D < 0)
 					D = D + 2 * dx;
-				}
 				else
+				{
 					D = D + 2 * (dx - dy);
-				if (map.point[j][i].y + y != map.point[j + 1][i].y)
-					y += 1;
-				my_mlx_pixel_put(img, map.point[j][i].x + x, map.point[j][i].y + y, 0xFFFFFF);
+					x += (map.point[j + 1][i].x - map.point[j][i].x)/dx;
+				}
 			}
 		}
 	}
 }
 
+void	ft_bresenham_x(int i, int j, t_map map, t_data *img)
+{
+	int dx;
+	int dy;
+	int D;
+	int x;
+	int y;
+
+	x = map.point[j][i].x;
+	y = map.point[j][i].y;
+	if (i + 1 < map.columns)
+	{
+		dx = abs(map.point[j][i + 1].x - x);
+		dy = abs(map.point[j][i + 1].y - y);
+		D = 2 * dy - dx;
+		if (dx > dy)
+		{
+			while (x <= map.point[j][i + 1].x)
+			{
+				my_mlx_pixel_put(img, x, y, 0xFFFFFF);
+				x += (map.point[j][i + 1].x - map.point[j][i].x)/dx;
+				if (D < 0)
+					D = D + 2 * dy;
+				else
+				{
+					D = D + 2 * (dy - dx);
+					y += (map.point[j][i + 1].y - map.point[j][i].y)/dy;
+				}
+			}
+		}
+		else
+		{
+			D = 2 * dx - dy;
+			while (y != map.point[j][i + 1].y)
+			{
+				my_mlx_pixel_put(img, x, y, 0xFFFFFF);
+				y += (map.point[j][i + 1].y - map.point[j][i].y)/dy;
+				if (D < 0)
+					D = D + 2 * dx;
+				else
+				{
+					D = D + 2 * (dx - dy);
+					x += (map.point[j][i + 1].x - map.point[j][i].x)/dx;
+				}
+			}
+		}
+	}
+}
+
+
 void	ft_rotate(t_map *map, int i, int j)
 {
-	double x;
-	double y;
-			
+	double 	x;
+	double 	y;
+	int		SCALE;
+
+	SCALE = 100;
+	while (SCALE * map->columns / sin(M_PI/6) > WIDTH + 370 || SCALE * map->lines / sin(M_PI/6) > HEIGHT + 100)
+		SCALE = SCALE * 90/100;
 	x = (map->point[j][i].x - map->point[j][i].y) * SCALE * sin(M_PI/4);
 	y = (map->point[j][i].x + map->point[j][i].y) * SCALE * sin(M_PI/4);
 	y = y * cos(M_PI/3);
 	y = y - sin(M_PI/3) * SCALE * map->point[j][i].z;
 	map->point[j][i].x = x + 370;
-	map->point[j][i].y = y + 100;
+	map->point[j][i].y = y + 300;
 }
 
 void	ft_window(t_map map)
@@ -148,7 +157,6 @@ void	ft_window(t_map map)
 		while (i < map.columns)
 		{
 			ft_rotate(&map, i, j);
-	//		ft_bresenham(i, j, map, &img);
 //			my_mlx_pixel_put(&img, map.point[j][i].x, map.point[j][i].y, 0xFFFFFF);
 			i++;
 		}
@@ -166,7 +174,8 @@ void	ft_window(t_map map)
 	{
 		while (i < map.columns)
 		{
-			ft_bresenham(i, j, map, &img);
+			ft_bresenham_x(i, j, map, &img);
+			ft_bresenham_y(i, j, map, &img);
 			i++;
 		}
 		i = 0;
