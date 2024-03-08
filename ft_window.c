@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/07 20:54:54 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:04:44 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,20 @@ void	ft_rotate(t_map *map, int i, int j)
 {
 	double 	x;
 	double 	y;
-	int		SCALE;
+//	int		SCALE_Z;
 
-	SCALE = 100;
-	while (SCALE * map->columns / sin(M_PI/6) > WIDTH + 370 || SCALE * map->lines / sin(M_PI/6) > HEIGHT + 100)
-		SCALE = SCALE * 90/100;
-	x = (map->point[j][i].x - map->point[j][i].y) * SCALE * sin(M_PI/4);
-	y = (map->point[j][i].x + map->point[j][i].y) * SCALE * sin(M_PI/4);
+//	SCALE_Z = 100;
+//	while (SCALE * map->columns / sin(M_PI/6) > WIDTH + 370 || SCALE * map->lines / sin(M_PI/6) > HEIGHT - 100)
+	while (map->SCALE * map->columns * sin(M_PI/4) < WIDTH/2 && map->SCALE * map->lines * sin(M_PI/6) < HEIGHT/2 && map->SCALE * map->max_z * sin(M_PI/3) < HEIGHT / 3)
+		map->SCALE += 0.2;
+	x = (map->point[j][i].x - map->point[j][i].y) * map->SCALE * sin(M_PI/4);
+	y = (map->point[j][i].x + map->point[j][i].y) * map->SCALE * sin(M_PI/4);
 	y = y * cos(M_PI/3);
-	y = y - sin(M_PI/3) * SCALE * map->point[j][i].z;
-	map->point[j][i].x = x + 370;
-	map->point[j][i].y = y + 300;
+//	while (y + SCALE_Z * map->max_z / sin(M_PI/3) > HEIGHT / 2)
+//		SCALE_Z = SCALE_Z * 90/100;
+	y = y - sin(M_PI/3) * map->SCALE * map->point[j][i].z;
+	map->point[j][i].x = x + WIDTH/2;
+	map->point[j][i].y = y + HEIGHT/3;
 }
 
 void	ft_window(t_map map)
@@ -152,6 +155,7 @@ void	ft_window(t_map map)
 	mlx_win = mlx_new_window(mlx, WIDTH, HEIGHT, "perro");
 	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	map.SCALE = 1;
 	while (j < map.lines)
 	{
 		while (i < map.columns)

@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:58:05 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/07 20:50:15 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:16:10 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int ft_map_array(t_list *list, t_map *map)
 			if (ft_strchr(spl[j], ','))
 				map->point[l][j].colour =ft_substr(spl[j], 1, ft_strlen(spl[j]));
 			map->point[l][j].z = ft_atoi(spl[j]);
-	//		if (abs(map->point[l][j].z) > map->max_z)
-	//			map->max_z = abs(map->point[l][j].z);
+			if (abs(map->point[l][j].z) > map->max_z)
+				map->max_z = abs(map->point[l][j].z);
 			map->point[l][j].x = j;
 			map->point[l][j].y = l;
 		//	printf("las x -> %i las y -> %i", map.point[l][j].x, map.point[l][j].y);
