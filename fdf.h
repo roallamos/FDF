@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/06 18:17:45 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:01:22 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,27 @@
 # include "./mlx/mlx.h"
 # include <math.h>
 
-# define WIDTH 720
+# define WIDTH 1080
 # define HEIGHT 720
-# define SCALE 100
 
 typedef struct s_struct 
 {
 	int	z;
 	int	x;
 	int y;
-	char *colour;
+	int colour;
+	double	red;
+	double	green;
+	double	blue;
 } t_struct;
 
 typedef struct s_map
 {
 	int lines;
 	int columns;
+	int	max_z;
 	t_struct **point;
+	float SCALE;
 	int x_offset;
 	int y_offset;
 } t_map;
