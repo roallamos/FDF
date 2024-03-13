@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:58:05 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/11 18:49:48 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:26:37 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 int	ft_atoi_hex(char *str, t_map *map, int x, int y)
 {
 	int nb;
+	unsigned char aux;
 	int i;
 
 	nb = 0;
@@ -25,17 +26,22 @@ int	ft_atoi_hex(char *str, t_map *map, int x, int y)
 	while (str[i] != 'x')
 		i++;
 	i++;
-	while ((str[i] >= 'A' && str[i] <= 'F') || (str[i] >= '0' && str[i] <= '9'))
+	while ((str[i] >= 'A' && str[i] <= 'F') || (str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'f'))
 	{
 		if (str[i] >= 'A' && str[i] <= 'F')
 			nb = nb * 16 + (str[i] - 55);
+		else if (str[i] >= 'a' && str[i] <= 'f')
+			nb = nb * 16 + (str[i] - 87);
 		else
 			nb = nb * 16 + (str[i] - '0');
 		i++;
 	}
-	map->point[y][x].red = nb / 65536;
-	map->point[y][x].green = (nb - 16711680) / 256;
-	map->point[y][x].blue = (nb -16776960);
+	aux = nb & 0xFF;
+	map->point[y][x].blue = (double) aux;
+	aux = (nb >> 8) & 0xFF;
+	map->point[y][x].green = (double) aux;
+	aux = (nb >> 16) & 0xFF;
+	map->point[y][x].red = (double) aux;
 	return (nb);
 }
 
@@ -72,7 +78,6 @@ int ft_map_array(t_list *list, t_map *map)
 				map->max_z = abs(map->point[l][j].z);
 			map->point[l][j].x = j;
 			map->point[l][j].y = l;
-		//	printf("las x -> %i las y -> %i", map.point[l][j].x, map.point[l][j].y);
 			free (spl[j]);
 			j++;
 		}

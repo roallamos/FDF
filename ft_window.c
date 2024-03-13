@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/11 19:12:48 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:52:03 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-/*int	colour_gradient()
+double	colour_gradient(double c0, double c1, int dx)
 {
-	int	color;
-	
-	color = 0xFFFFFF;
-	return ((colour - 0x000000) / dx);
-}*/
+//	printf("resta %f\n", (c1 - c0)/dx);
+	return ((c1 - c0) / dx);
+}
 
 void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 {
@@ -37,7 +35,10 @@ void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 	int D;
 	int x;
 	int y;
-	int c = 0;
+	double relative_pos;
+	double red;
+	double green;
+	double blue;
 
 	x = map.point[j][i].x;
 	y = map.point[j][i].y;
@@ -50,8 +51,11 @@ void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 			D = 2 * dy - dx;
 			while (x != map.point[j + 1][i].x)
 			{
-				
-				my_mlx_pixel_put(img, x, y, ((map.point[j][i].red + c * (map.point[j + 1][i].red - map.point[j][i].red) / dx) * 65536 + (map.point[j][i].green + c * (map.point[j + 1][i].green - map.point[j][i].green) / dx) * 256 + (map.point[j][i].blue + c * (map.point[j + 1][i].blue - map.point[j][i].blue) / dx)));
+				relative_pos = (double) abs(x - map.point[j][i].x) / dx;
+				red = (relative_pos * map.point[j + 1][i].red + (1 - relative_pos) * map.point[j][i].red);
+				green = (relative_pos * map.point[j + 1][i].green + (1 - relative_pos) * map.point[j][i].green);
+				blue = (relative_pos * map.point[j + 1][i].blue + (1 - relative_pos) * map.point[j][i].blue);
+				my_mlx_pixel_put(img, x, y,  ((int)red << 16) + ((int)green << 8) + (int)blue);
 				x += (map.point[j + 1][i].x - map.point[j][i].x)/dx;
 				if (D < 0)
 					D = D + 2 * dy;
@@ -60,7 +64,6 @@ void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 					D = D + 2 * (dy - dx);
 					y += (map.point[j + 1][i].y - map.point[j][i].y)/dy;
 				}
-				c++;
 			}
 		}
 		else
@@ -68,7 +71,11 @@ void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
 			D = 2 * dx - dy;
 			while (y != map.point[j + 1][i].y)
 			{
-				my_mlx_pixel_put(img, x, y, map.point[j][i].colour);
+				relative_pos = (double) abs(y - map.point[j][i].y) / dy;
+				red = (relative_pos * map.point[j + 1][i].red + (1 - relative_pos) * map.point[j][i].red);
+				green = (relative_pos * map.point[j + 1][i].green + (1 - relative_pos) * map.point[j][i].green);
+				blue = (relative_pos * map.point[j + 1][i].blue + (1 - relative_pos) * map.point[j][i].blue);
+				my_mlx_pixel_put(img, x, y,  ((int)red << 16) + ((int)green << 8) + (int)blue);
 				y += (map.point[j + 1][i].y - map.point[j][i].y)/dy;
 				if (D < 0)
 					D = D + 2 * dx;
@@ -89,6 +96,10 @@ void	ft_bresenham_x(int i, int j, t_map map, t_data *img)
 	int D;
 	int x;
 	int y;
+	double relative_pos;
+	double red;
+	double green;
+	double blue;
 
 	x = map.point[j][i].x;
 	y = map.point[j][i].y;
@@ -101,7 +112,11 @@ void	ft_bresenham_x(int i, int j, t_map map, t_data *img)
 		{
 			while (x <= map.point[j][i + 1].x)
 			{
-				my_mlx_pixel_put(img, x, y, map.point[j][i].colour);
+				relative_pos = (double) abs(x - map.point[j][i].x) / dx;
+				red = (relative_pos * map.point[j][i + 1].red + (1 - relative_pos) * map.point[j][i].red);
+				green = (relative_pos * map.point[j][i + 1].green + (1 - relative_pos) * map.point[j][i].green);
+				blue = (relative_pos * map.point[j][i + 1].blue + (1 - relative_pos) * map.point[j][i].blue);
+				my_mlx_pixel_put(img, x, y,  ((int)red << 16) + ((int)green << 8) + (int)blue);
 				x += (map.point[j][i + 1].x - map.point[j][i].x)/dx;
 				if (D < 0)
 					D = D + 2 * dy;
@@ -117,7 +132,11 @@ void	ft_bresenham_x(int i, int j, t_map map, t_data *img)
 			D = 2 * dx - dy;
 			while (y != map.point[j][i + 1].y)
 			{
-				my_mlx_pixel_put(img, x, y, map.point[j][i].colour);
+				relative_pos = (double) abs(y - map.point[j][i].y) / dy;
+				red = (relative_pos * map.point[j][i + 1].red + (1 - relative_pos) * map.point[j][i].red);
+				green = (relative_pos * map.point[j][i + 1].green + (1 - relative_pos) * map.point[j][i].green);
+				blue = (relative_pos * map.point[j][i + 1].blue + (1 - relative_pos) * map.point[j][i].blue);
+				my_mlx_pixel_put(img, x, y,  ((int)red << 16) + ((int)green << 8) + (int)blue);
 				y += (map.point[j][i + 1].y - map.point[j][i].y)/dy;
 				if (D < 0)
 					D = D + 2 * dx;
@@ -172,7 +191,6 @@ void	ft_window(t_map map)
 		while (i < map.columns)
 		{
 			ft_rotate(&map, i, j);
-//			my_mlx_pixel_put(&img, map.point[j][i].x, map.point[j][i].y, 0xFFFFFF);
 			i++;
 		}
 		i = 0;

@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/13 17:57:10 by rodralva         ###   ########.fr       */
+/*   Created: 2024/03/13 17:20:18 by rodralva          #+#    #+#             */
+/*   Updated: 2024/03/13 17:28:56 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void leaks()
+void	terminate(char *error)
 {
-	system("leaks -q a.out");
-}
-
-int	main(int argc, char **argv)
-{
-	t_list	*list;
-	t_map	map;
-
-	if (argc != 2)
-		terminate(ERR_ARGS);
-	list = NULL;
-	map.lines = ft_read_map(argv[1], &list);
-	ft_map_array(list, &map);
-	ft_lstclear(&list, free);
-	ft_window(map);
-	ft_free_map(map);
-//	atexit(leaks);
-	return (0);
+	if (errno == 0)
+		ft_putendl_fd(error, 2);
+	else
+		perror(error);
+	exit(1);
 }
