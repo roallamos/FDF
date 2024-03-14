@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/13 17:35:27 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:55:26 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 
 # define ERR_ARGS "Incorrect number of arguments"
 # define ERR_OPEN "Could not open file"
+
+typedef struct mlx
+{
+	void *mlx;
+	void *win;
+} t_mlx;
 
 typedef struct s_struct 
 {
@@ -43,6 +49,7 @@ typedef struct s_map
 	float SCALE;
 	int x_offset;
 	int y_offset;
+	t_mlx mlx; 
 } t_map;
 
 typedef struct	s_data 
@@ -53,6 +60,11 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
 } t_data;
+
+typedef struct s_utils
+{
+	t_map map;
+} t_utils;
 
 int	ft_read_map(char *map, t_list **list);
 int	ft_map_array(t_list *list, t_map *map);

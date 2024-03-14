@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/13 13:52:03 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:41:37 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
-}
-
-double	colour_gradient(double c0, double c1, int dx)
-{
-//	printf("resta %f\n", (c1 - c0)/dx);
-	return ((c1 - c0) / dx);
 }
 
 void	ft_bresenham_y(int i, int j, t_map map, t_data *img)
@@ -171,19 +165,37 @@ void	ft_rotate(t_map *map, int i, int j)
 	map->point[j][i].y = y + HEIGHT/3;
 }
 
+int	ft_close(int keycode, t_map *map)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(map->mlx.mlx, map->mlx.win);
+		ft_free_map(*map);
+		exit(0);
+	}
+	return (0);
+}
+
+int	ft_x_close(t_map *map)
+{
+	mlx_destroy_window(map->mlx.mlx, map->mlx.win);
+	ft_free_map(*map);
+	exit(0);
+	return (0);
+}
+
+
 void	ft_window(t_map map)
 {
-	void	*mlx;
-	void	*mlx_win;
 	t_data	img;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WIDTH, HEIGHT, "perro");
-	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	map.mlx.mlx = mlx_init();
+	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "perro");
+	img.img = mlx_new_image(map.mlx.mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	map.SCALE = 1;
 	while (j < map.lines)
@@ -196,11 +208,6 @@ void	ft_window(t_map map)
 		i = 0;
 		j++;
 	}
-
-
-// ----------------------------
-
-
 	i = 0;
 	j = 0; 
 	while (j < map.lines)
@@ -214,7 +221,9 @@ void	ft_window(t_map map)
 		i = 0;
 		j ++;
 	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(map.mlx.mlx, map.mlx.win, img.img, 0, 0);
+	mlx_key_hook(map.mlx.win, ft_close, &map);
+	mlx_hook(map.mlx.win, 17, 0L, ft_x_close, &map);
+	mlx_loop(map.mlx.mlx);
 }
 
