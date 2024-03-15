@@ -8,7 +8,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 ARFLAGS  = -rcs
 
-SOURCES = ft_print.c ft_window.c ft_free_map.c ft_map_array.c ft_read_map.c main.c
+SOURCES = ft_print.c ft_window.c ft_free_map.c ft_map_array.c ft_read_map.c errors.c bonus.c draw.c main.c
 
 SRCPATH = ./src
 
@@ -24,7 +24,7 @@ LNAME = ft
 ${NAME}: ${OBJECTS}
 	${MAKE} -C ${LPATH}
 	${MAKE} -C ${LPATH} bonus
-	${CC} ${CFLAGS} -Lmlx -lmlx -L ${LPATH} -l ${LNAME} ${SOURCES} -framework OpenGL -framework AppKit -g
+	${CC} ${CFLAGS} -Lmlx -lmlx -L ${LPATH} -l ${LNAME} ${SOURCES} -g -framework OpenGL -framework AppKit 
 
 clean:
 	${MAKE} -C ./libft clean

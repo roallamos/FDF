@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 17:20:18 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/15 11:15:13 by rodralva         ###   ########.fr       */
+/*   Created: 2024/03/15 12:23:48 by rodralva          #+#    #+#             */
+/*   Updated: 2024/03/15 12:25:14 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	terminate(char *error)
+void	ft_draw(t_map *map)
 {
-	if (errno == 0)
-		ft_putendl_fd(error, 2);
-	else
-		perror(error);
-	exit(1);
-}
-
-void	ft_check_columns(int columns, char **spl)
-{
-	int	i;
+	int i;
+	int j;
 
 	i = 0;
-	while(spl[i])
-		i++;
-	if (columns != i)
-		terminate(ERR_MAP);
+	j = 0;
+	while (j < map->lines)
+	{
+		while (i < map->columns)
+		{
+			ft_bresenham_x(i, j, *map, &map->img);
+			ft_bresenham_y(i, j, *map, &map->img);
+			i++;
+		}
+		i = 0;
+		j++;
+	}
 }

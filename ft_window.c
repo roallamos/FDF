@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/14 15:41:37 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:33:42 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,12 @@ void	ft_rotate(t_map *map, int i, int j)
 {
 	double 	x;
 	double 	y;
-//	int		SCALE_Z;
 
-//	SCALE_Z = 100;
-//	while (SCALE * map->columns / sin(M_PI/6) > WIDTH + 370 || SCALE * map->lines / sin(M_PI/6) > HEIGHT - 100)
 	while (map->SCALE * map->columns * sin(M_PI/4) < WIDTH/2 && map->SCALE * map->lines * sin(M_PI/6) < HEIGHT/2 && map->SCALE * map->max_z * sin(M_PI/3) < HEIGHT / 3)
 		map->SCALE += 0.2;
 	x = (map->point[j][i].x - map->point[j][i].y) * map->SCALE * sin(M_PI/4);
 	y = (map->point[j][i].x + map->point[j][i].y) * map->SCALE * sin(M_PI/4);
 	y = y * cos(M_PI/3);
-//	while (y + SCALE_Z * map->max_z / sin(M_PI/3) > HEIGHT / 2)
-//		SCALE_Z = SCALE_Z * 90/100;
 	y = y - sin(M_PI/3) * map->SCALE * map->point[j][i].z;
 	map->point[j][i].x = x + WIDTH/2;
 	map->point[j][i].y = y + HEIGHT/3;
@@ -185,45 +180,28 @@ int	ft_x_close(t_map *map)
 }
 
 
-void	ft_window(t_map map)
+void	ft_window(t_map *map)
 {
-	t_data	img;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	map.mlx.mlx = mlx_init();
-	map.mlx.win = mlx_new_window(map.mlx.mlx, WIDTH, HEIGHT, "perro");
-	img.img = mlx_new_image(map.mlx.mlx, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	map.SCALE = 1;
-	while (j < map.lines)
+	map->mlx.mlx = mlx_init();
+	map->mlx.win = mlx_new_window(map->mlx.mlx, WIDTH, HEIGHT, "perro");
+	map->img.img = mlx_new_image(map->mlx.mlx, WIDTH, HEIGHT);
+	map->img.addr = mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel, &map->img.line_length, &map->img.endian);
+	map->SCALE = 1;
+	while (j < map->lines)
 	{
-		while (i < map.columns)
+		while (i < map->columns)
 		{
-			ft_rotate(&map, i, j);
+			ft_rotate(map, i, j);
 			i++;
 		}
 		i = 0;
 		j++;
 	}
-	i = 0;
-	j = 0; 
-	while (j < map.lines)
-	{
-		while (i < map.columns)
-		{
-			ft_bresenham_x(i, j, map, &img);
-			ft_bresenham_y(i, j, map, &img);
-			i++;
-		}
-		i = 0;
-		j ++;
-	}
-	mlx_put_image_to_window(map.mlx.mlx, map.mlx.win, img.img, 0, 0);
-	mlx_key_hook(map.mlx.win, ft_close, &map);
-	mlx_hook(map.mlx.win, 17, 0L, ft_x_close, &map);
-	mlx_loop(map.mlx.mlx);
+	ft_draw(map);
+	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, map->img.img, 0, 0);
 }
-

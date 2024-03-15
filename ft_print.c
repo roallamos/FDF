@@ -6,13 +6,13 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:48:35 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/05 18:28:43 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:39:13 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_print(t_map map)
+/*void	ft_print(t_map map)
 {
 	int i;
 	int j;
@@ -30,4 +30,4 @@ void	ft_print(t_map map)
 		j = 0;
 		i++;
 	}
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:58:05 by rodralva          #+#    #+#             */
-/*   Updated: 2024/03/13 16:26:37 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:46:33 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int ft_map_array(t_list *list, t_map *map)
 	while (l < map->lines)
 	{
 		spl = ft_split(list->content, ' ');
+		if (l != 0)
+			ft_check_columns(map->columns, spl);
 		while (spl[map->columns])
 			map->columns += 1;
 		map->point[l] = (t_struct *) malloc(map->columns * sizeof(t_struct));
