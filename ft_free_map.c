@@ -16,10 +16,8 @@
 void	ft_free_map(t_map map)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
 	while (i < map.lines)
 	{
 		free (map.point[i]);

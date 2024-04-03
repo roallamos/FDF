@@ -14,11 +14,13 @@
 # define FDF_H
 
 # include "./libft/libft.h"
-# include "./mlx/mlx.h"
+//# include "./mlx/mlx.h"
+# include "./mlx_linux/mlx.h"
 # include <math.h>
+# include <errno.h>
 
 # define WIDTH 1080
-# define HEIGHT 720
+# define HEIGHT 1080
 
 # define ERR_ARGS "Incorrect number of arguments"
 # define ERR_OPEN "Could not open file"
@@ -35,6 +37,8 @@ typedef struct s_struct
 	int	z;
 	int	x;
 	int	y;
+	int	draw_x;
+	int	draw_y;
 	int colour;
 	double	red;
 	double	green;
@@ -56,7 +60,7 @@ typedef struct s_map
 	int columns;
 	int	max_z;
 	t_struct **point;
-	float SCALE;
+	double SCALE;
 	int x_offset;
 	int y_offset;
 	t_mlx mlx;
@@ -68,6 +72,7 @@ int	ft_map_array(t_list *list, t_map *map);
 void	ft_free_map(t_map map);
 void	ft_window(t_map *map);
 void	ft_print(t_map map);
+void	ft_rotate(t_map *map);
 int		ft_close(int keycode, t_map *map);
 int		ft_x_close(t_map *map);
 void	terminate(char *error);
@@ -80,4 +85,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	set_image_black(t_map *map);
 void	ft_move_up(t_map *map);
 void	ft_draw(t_map *map);
+void	ft_move_down(t_map *map);
+void	ft_move_up(t_map *map);
+void	ft_move_left(t_map *map);
+void	ft_move_right(t_map *map);
 #endif

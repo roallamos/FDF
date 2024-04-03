@@ -14,7 +14,7 @@
 
 void leaks()
 {
-	system("leaks -q a.out");
+//	system("leaks -q a.out");
 }
 
 void	ft_load_map(t_map *map, char *argv)
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 {
 	t_map	map;
 
-	atexit(leaks);
+//	atexit(leaks);
 	if (argc != 2)
 		terminate(ERR_ARGS);
 	ft_load_map(&map, argv[1]);
