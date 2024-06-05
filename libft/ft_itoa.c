@@ -31,12 +31,10 @@ char	*ft_itoa(int n)
 {
 	int		size;
 	int		t;
-	int		i;
 	char	*str;
 
 	size = 0;
 	t = n;
-	i = 0;
 	if (n <= 0)
 		size++;
 	while (t != 0)

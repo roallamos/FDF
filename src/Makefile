@@ -1,4 +1,4 @@
-NAME = fdf
+NAME = fdf.out
 
 CC = cc
 
@@ -8,9 +8,9 @@ CFLAGS = -Wall -Werror -Wextra
 
 ARFLAGS  = -rcs
 
-SOURCES = $(addprefix $(SRCPATH), ft_window.c ft_free_map.c ft_map_array.c ft_read_map.c errors.c bonus.c draw.c move.c mouse.c colour.c rotations.c bresenham.c main.c)
+SOURCES = move.c ft_window.c ft_free_map.c ft_map_array.c ft_read_map.c errors.c bonus.c draw.c main.c mouse.c rotations.c bresenham.c colour.c
 
-SRCPATH = ./src/
+SRCPATH = ./src
 
 OBJECTS = $(SOURCES:.c=.o)
 
