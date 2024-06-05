@@ -14,22 +14,22 @@
 
 int	ft_views(int keycode, t_map *map)
 {
-	if (keycode == 35)
+	if (keycode == 112)
 	{
 		map->z_rotation = 0;
 		map->x_rotation = 0;
 	}
-	if (keycode == 34)
+	if (keycode == 105)
 	{
 		map->z_rotation = M_PI / 4;
 		map->x_rotation = M_PI / 3;
 	}
-	if (keycode == 37)
+	if (keycode == 108)
 	{
 		map->z_rotation = M_PI / 2;
 		map->x_rotation = M_PI / 2;
 	}
-	if (keycode == 0)
+	if (keycode == 97)
 	{
 		map->z_rotation = 0;
 		map->x_rotation = M_PI / 2;

@@ -34,7 +34,6 @@ void	ft_zoom(t_map *new)
 
 int	ft_hold_key(int keycode, t_map *map)
 {
-	printf("keykode %d\n", keycode);
 	if (keycode >= 65361 && keycode <= 65364)
 		ft_move(keycode, map);
 	if (keycode == 120)
@@ -60,7 +59,7 @@ int	ft_hold_key(int keycode, t_map *map)
 
 int	ft_press_key(int keycode, t_map *map)
 {
-	if (keycode == 35 || keycode == 34 || keycode == 37 || keycode == 0)
+	if (keycode == 105 || keycode == 112 || keycode == 97 || keycode == 108)
 		ft_views(keycode, map);
 	if (keycode == 65307)
 	{

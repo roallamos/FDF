@@ -49,7 +49,6 @@ int	ft_mouse_press(int keycode, int x, int y, void *map)
 {
 	t_map	*new;
 
-	printf("keycode %d\n", keycode);
 	new = (t_map *)map;
 	if (keycode == 4)
 	{
