@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:36:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/04/16 11:23:44 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:27:21 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 
 # include "../libft/libft.h"
-# include "mlx.h"
-//# include "./mlx_linux/mlx.h"
+//# include "mlx.h"
+# include "../mlx_linux/mlx.h"
 # include <errno.h>
 # include <math.h>
 
