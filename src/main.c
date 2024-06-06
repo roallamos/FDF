@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:24:00 by rodralva          #+#    #+#             */
-/*   Updated: 2024/04/16 11:09:21 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:42:23 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		terminate(ERR_ARGS);
+	ft_memset(&map, 0, sizeof(t_map));
 	ft_load_map(&map, argv[1]);
 	ft_window(&map);
 	mlx_key_hook(map.mlx.win, ft_press_key, &map);

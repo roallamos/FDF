@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:45:36 by rodralva          #+#    #+#             */
-/*   Updated: 2024/06/06 15:26:13 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:45:18 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	ft_x_close(t_map *map)
 {
 	mlx_destroy_image(map->mlx.mlx, map->img.img);
 	mlx_destroy_window(map->mlx.mlx, map->mlx.win);
-	mlx_destroy_display(map->mlx.mlx, map->mlx.win);
+	mlx_loop_end(map->mlx.mlx);
+	mlx_destroy_display(map->mlx.mlx);
 	ft_free_map(*map);
 	exit(0);
 	return (0);
